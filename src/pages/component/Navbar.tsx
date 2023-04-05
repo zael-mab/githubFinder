@@ -9,9 +9,9 @@ const Navbar = ({title}: propTypes) => {
     <div>
         <nav className='navbar mb-12 shadow-lg bg-neutral text-neutral-content text-indigo-200'>
             <div className="container mx-auto ">
-                <div className="flex-none px-2 mx-2 text-white">
-                    <GoMarkGithub className='inline pr-1 text-4xl'/>
-                    <Link href={'/'} className='px-2 text-lg font-bold'>Github Finder</Link>
+                <div className="flex items-center px-2 mx-2 text-white">
+                    <GoMarkGithub className='hidden sm:inline pr-1 text-4xl'/>
+                    <Link href={'/'} className=' sm:text-lg text-sm px-2 font-bold'>Github Finder</Link>
                 </div>
 
                 <div className="flex-1 px-2 mx-2">
