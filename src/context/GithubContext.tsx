@@ -1,76 +1,6 @@
-import React, { createContext, useState, useReducer } from 'react';
-import {GithubUserType} from '@/component/UsersResults';
-
-interface fecthUsersTypes {
-  url: string;
-  param: string;
-  action: boolean;
-};
-
-interface GithubContextType {
-  state: State;
-  dispatch: React.Dispatch<StateAction>;
-  fetchUsers: ({url, param, action} : fecthUsersTypes) => Promise<void>;
-};
-
-interface State {
-  users: GithubUserType[];
-  error: string;
-  isLoading: boolean;
-  user: GithubUserType | null;
-}
-
-export enum StateTypes {
-  INIT = 'INIT',
-  INPUT_ERROR = 'INPUT_ERROR',
-  FETCH_ERROR = 'FETCH_ERROR',
-  SET_USERS = 'SET_USERS',
-  SET_USER = 'SET_USER',
-  SET_LOADING = 'SET_LOADING'
-}
-
-interface StateAction{
-  type: StateTypes;
-  payload: State;
-}
-
-const reducer = (state: State , action: StateAction) => {
-  const {payload, type} = action;
-
-  switch(type){
-      case 'INIT':
-          return payload;
-      case 'INPUT_ERROR':
-          return {
-            ...state,
-            error: 'Please Write Somthing'
-          };
-      case 'FETCH_ERROR':
-          return {
-            ...state,
-            error: payload.error,
-            isLoading: payload.isLoading
-          };
-      case 'SET_USERS':
-          return {
-            ...state,
-            ...payload
-          }
-      case 'SET_USER':
-          return {
-            ...state,
-            ...payload
-          }
-      case 'SET_LOADING':
-          return {
-            ...state,
-            isLoading: payload.isLoading
-          }
-      default:
-          return state;
-  }
-};
-
+import React, { createContext, useReducer } from 'react';
+import reducer from './GithubReducer';
+import {fecthUsersTypes, GithubContextType, State, StateTypes} from '@/types/context'
 
 
 const GithubContext = createContext<GithubContextType>({
@@ -131,20 +61,32 @@ export const GithubProvider  = ({children}: { children: React.ReactNode }) => {
 
     }else {
       if (action){
-        const users = await response.json();
-        dispatch({
-          type: StateTypes.SET_USERS,
-          payload: {
-            ...state,
-            users,
-            error: '',
-            isLoading: false
-          }
-        });
+        const {items} = await response.json();
+        if (items.length > 0){
+          dispatch({
+            type: StateTypes.SET_USERS,
+            payload: {
+              ...state,
+              users: items,
+              error: '',
+              isLoading: false
+            }
+          });
+        }else{
+          dispatch({
+            type: StateTypes.FETCH_ERROR,
+            payload: {
+              ...state,
+              error: 'Not Found',
+              isLoading: false
+            }
+          });
+        }
+
       }else{
         const user = await response.json();
         dispatch({
-          type: StateTypes.SET_USERS,
+          type: StateTypes.SET_USER,
           payload: {
             ...state,
             user,
