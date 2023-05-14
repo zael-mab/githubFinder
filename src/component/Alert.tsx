@@ -21,12 +21,11 @@ const AlertIcons = ({type}: {type: string}) => {
 };
 
 const Alert = ({type, message}: {type: string, message: string}) => {
-    console.log (type)
     const alertType = type === 'Error' ? 'alert-error' : (type === 'Warning' ? 'alert-warning' : 'alert-success');
 
 
   return (
-    <div className={`shadow-lg alert ${alertType}`}>
+    <div className={`shadow-lg alert ${alertType} flex flex-col`}>
         <div>
             <AlertIcons type={type} />
             <span>{message}</span>
