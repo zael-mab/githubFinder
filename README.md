@@ -6,6 +6,11 @@
 
 Github Finder is a web application that allows users to search for Github users and view their profiles and repositories. The application is built with Next.js and uses Tailwind CSS and DaisyUI for styling.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+
 ## Installation
 
 To install the necessary dependencies, run the following command:
@@ -13,6 +18,7 @@ To install the necessary dependencies, run the following command:
 npm install
 ```
 
+## Usage
 run the development server:
 
 ```bash
