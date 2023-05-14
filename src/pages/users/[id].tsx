@@ -2,7 +2,7 @@ import useGithubFetch from '../../hooks/useGithubFetch';
 import { useContext, useEffect } from 'react';
 import GithubContext from '@/context/GithubContext';
 import { useRouter } from 'next/router';
-
+//
 const GITHUB_URL = `${process.env.NEXT_PUBLIC_GITHUB_URL}`;
 
 const User = () => {
