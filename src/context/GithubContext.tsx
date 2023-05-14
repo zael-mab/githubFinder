@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 import reducer from './GithubReducer';
-import {fecthUsersTypes, GithubContextType, State, StateTypes} from '@/types/context'
+import {FecthUsersTypes, GithubContextType, State, StateTypes} from '@/types/context'
 
 
 const GithubContext = createContext<GithubContextType>({
@@ -11,7 +11,7 @@ const GithubContext = createContext<GithubContextType>({
     isLoading: false,
   },
   dispatch: () => {},
-  fetchUsers: ({ url, param, action }: fecthUsersTypes) => Promise.resolve()
+  fetchUsers: ({ url, param, action }: FecthUsersTypes) => Promise.resolve()
 });
 
 export const initState: State = {
@@ -21,8 +21,30 @@ export const initState: State = {
   isLoading: false
 };
 
+const setAndClearFetchError = (state: State, dispatch: React.Dispatch<any>, error: string) => {
+
+  dispatch({
+    type: StateTypes.FETCH_ERROR,
+    payload: {
+      ...state,
+      error: error,
+      isLoading: false,
+    }
+  });
+
+  setTimeout(() => {
+    dispatch({
+      type: StateTypes.CLEAR_ERROR,
+      payload: {
+        ...state,
+      }
+    });
+  }, 3000);
+};
+
 export const GithubProvider  = ({children}: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initState);
+
 
   const fetchUsers = async ({url, param, action}: {url: string, param: string, action: boolean}) => {
 
@@ -30,70 +52,62 @@ export const GithubProvider  = ({children}: { children: React.ReactNode }) => {
       type: StateTypes.SET_LOADING,
       payload: {
         ...state,
-        isLoading: false,
+        isLoading: true,
       }
     });
+
+    try {
     
-    const response = await fetch(`${url}${param}`, {
-      headers: {
-        Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`
-      }
-    });
-    if (response.status === 404){
-      
-      dispatch({
-        type: StateTypes.FETCH_ERROR,
-        payload: {
-          ...state,
-          error: 'Not Found',
-          isLoading: false,
+      const response = await fetch(`${url}${param}`, {
+        headers: {
+          Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`
         }
       });
-      setTimeout(() => {
-        dispatch({
-          type: StateTypes.FETCH_ERROR,
-          payload: {
-            ...state,
-            error: '',
-          }
-        });
-      }, 3000);
+    
+      if (response.status === 404){
+        setAndClearFetchError(state, dispatch, 'Not Found');
 
-    }else {
-      if (action){
-        const {items} = await response.json();
-        if (items.length > 0){
+      }else {
+        if (action){
+
+          const {items} = await response.json();
+          
+          if (items.length > 0){
+            dispatch({
+              type: StateTypes.SET_USERS,
+              payload: {
+                ...state,
+                users: items,
+                error: '',
+                isLoading: false
+              }
+            });
+
+          }else{
+          
+            setAndClearFetchError(state, dispatch, 'Not Found');
+          }
+
+        }else{
+
+          const user = await response.json();
           dispatch({
-            type: StateTypes.SET_USERS,
+            type: StateTypes.SET_USER,
             payload: {
               ...state,
-              users: items,
+              user,
               error: '',
               isLoading: false
             }
           });
-        }else{
-          dispatch({
-            type: StateTypes.FETCH_ERROR,
-            payload: {
-              ...state,
-              error: 'Not Found',
-              isLoading: false
-            }
-          });
         }
+      }
 
+    } catch(error: unknown) {
+      if (error instanceof Error){
+        setAndClearFetchError(state, dispatch, error.message);
       }else{
-        const user = await response.json();
-        dispatch({
-          type: StateTypes.SET_USER,
-          payload: {
-            ...state,
-            user,
-            error: '',
-            isLoading: false
-          }
-        });
+        setAndClearFetchError(state, dispatch, 'An unknown error occurred.');
       }
     }
   };

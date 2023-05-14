@@ -18,9 +18,10 @@ const AlertIcons = ({type}: {type: string}) => {
             <BiErrorAlt />
         </>);
     }
-}
+};
 
 const Alert = ({type, message}: {type: string, message: string}) => {
+    console.log (type)
     const alertType = type === 'Error' ? 'alert-error' : (type === 'Warning' ? 'alert-warning' : 'alert-success');
 
 

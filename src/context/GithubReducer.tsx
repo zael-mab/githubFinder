@@ -1,4 +1,4 @@
-import {State, StateAction} from './GithubContext';
+import {State, StateAction} from '../types/context';
 
 const reducer = (state: State , action: StateAction) => {
     const {payload, type} = action;
@@ -6,6 +6,11 @@ const reducer = (state: State , action: StateAction) => {
     switch(type){
         case 'INIT':
             return payload;
+        case 'CLEAR_ERROR':
+            return {
+              ...state,
+              error: ''
+            };
         case 'INPUT_ERROR':
             return {
               ...state,

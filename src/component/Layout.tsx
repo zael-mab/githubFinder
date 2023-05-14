@@ -4,14 +4,14 @@ import styles from '@/styles/Layout.module.css';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
-interface propTypes {
+interface PropTypes {
   title: string | undefined,
   description: string | undefined,
   keywords: string | undefined,
   children: JSX.Element | undefined
 };
 
-const Layout = ({children, title, description, keywords}: propTypes) => {
+const Layout = ({children, title, description, keywords}: PropTypes) => {
   return (
     <div className={styles.layout}>
       <Head>
@@ -23,7 +23,7 @@ const Layout = ({children, title, description, keywords}: propTypes) => {
         </Head>
         <div className='flex flex-col justify-between min-h-screen text-white'>
           <Navbar title={'home'} />
-          <main className='container mx-auto px-3 pb-12'>
+          <main className='container px-3 pb-4 mx-auto'>
             {children}
           </main>
           <Footer />

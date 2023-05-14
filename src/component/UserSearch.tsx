@@ -1,180 +1,136 @@
-import useGithubFetch from '@/hooks/useGithubFetch';
-import React, { useReducer, useContext, useEffect, useState } from 'react';
-import GithubContext from '@/context/GithubContext';
-import { GithubUserType } from './UsersResults';
+import React, { useContext, useState } from 'react';
+import GithubContext, { initState } from '@/context/GithubContext';
 import Alert from './Alert';
-import { StateTypes, initState } from '@/context/GithubContext';
-// interface State {
-//     textInput: string;
-//     error: string;
-//     isLoading: boolean;
-//     user: GithubUserType | null;
-// }
-
-// enum StateTypes {
-//     INPUT_ERROR = 'INPUT_ERROR',
-//     INIT = 'INIT',
-//     FETCH_ERROR = 'FETCH_ERROR',
-//     SET_TEXT_INPUT = 'SET_TEXT_INPUT',
-//     SET_USERS = 'SET_USERS'
-// }
-
-// interface StateAction{
-//     type: StateTypes;
-//     payload: State;
-// }
-
-// const reducer = (state: State , action: StateAction) => {
-//     const {payload, type} = action;
-
-//     switch(type){
-//         case 'INIT':
-//             return payload;
-//         case 'INPUT_ERROR':
-//             return {...state, error: 'Please Write Somthing'};
-//         case 'FETCH_ERROR':
-//             return {...state, error: payload.error};
-//         case 'SET_TEXT_INPUT':
-//             return {...state, textInput: payload.textInput};
-//         case 'SET_USERS':
-//             return {...state, users: payload.user}
-//         default:
-//             return state;
-//     }
-// };
+import { StateTypes } from '@/types/context';
+import UserResults  from './UsersResults';
+import Loading from './Loading';
 
 const GITHUB_URL = `${process.env.NEXT_PUBLIC_GITHUB_URL}`;
 
 const UserSearch = () => {
-    // const initState: State= {
-    //     textInput: '',
-    //     error: '',
-    //     user: null,
-    //     isLoading: false
-    // };
     const [textInput, setTextInput] = useState<string>('');
     const {state, dispatch, fetchUsers} = useContext(GithubContext);
-    // const [state, dispatch] = useReducer(reducer, initState);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newTextInput = e.target.value;
-        // if(newTextInput.length > 0){
-            setTextInput(newTextInput);
-            dispatch({
-                type: StateTypes.FETCH_ERROR,
-                payload: {
-                    ...state,
-                    error: ''
-                }
-            });
-        // }else{
-        //     clearInputHandler();
-        // }
+        setTextInput(newTextInput);
+        dispatch({
+            type: StateTypes.FETCH_ERROR,
+            payload: {
+                ...state,
+                error: ''
+            }
+        });
     };
     
     const hadnleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        
+        if (state.users.length > 0){
+            dispatch({
+                type: StateTypes.SET_USERS,
+                payload: {
+                    ...state,
+                    users: []
+                }
+            });
+        }
+
         if (textInput === ''){
+
             dispatch({
                 type: StateTypes.INPUT_ERROR,
                 payload: {
                     ...state,
-                    error: 'Please Write Somthing'
                 }
             });
+            
+            setTimeout(() => {
+                dispatch({
+                    type: StateTypes.CLEAR_ERROR,
+                    payload: {
+                        ...state,
+                    }
+                });
+            }, 3000);
+
         }else {
+            const params = new URLSearchParams({
+                q: textInput
+            });
             const dataFetchingArgs = {
                 url: GITHUB_URL,
-                param: `/users/${textInput}`,
-                action: false
+                param: `/search/users?${params}`,
+                action: true
             };
             
             fetchUsers(dataFetchingArgs);
-            // console.log ('error', state.error)
-            // if (error.length > 0){
-            //     dispatch({
-            //         type: StateTypes.FETCH_ERROR,
-            //         payload: {
-            //             ...state,
-            //             error: error
-            //         }
-            //     });
-            // }else{
-            //     dispatch({
-            //         type: StateTypes.SET_USERS,
-            //         payload: {
-            //             ...state,
-            //             user: user
-            //         }
-            //     });
-            // }
 
         }
     };
-    console.log (state)
 
     const clearInputHandler = () => {
         
-        if (textInput !== '' || state.error !== ''){
-            dispatch({
-                    type: StateTypes.INIT,
-                    payload: initState
-            });
-            setTextInput('');
+        dispatch({
+                type: StateTypes.INIT,
+                payload: initState
+        });
+        setTextInput('');
 
-        }
     };
 
-    // console.log (state);
-
-    if (state.isLoading){
-        return (<>
-            <h2>Loading ...</h2>
-        </>)
-    }else{
-        return (
-          <div 
-          className='grid grid-cols-1 gap-8 mb-8 xl:grid-cols-2 lg:grid-cols-2 md-grid-cols-2'
-          >
-              <div>
-                  <form onSubmit={hadnleSubmit}>
-                      <div className='relative items-center py-2 border-b border-indigo-400'>
-                          <input
-                              type='text'
-                              className='w-full pr-40 text-black bg-gray-200 border-indigo-400 input input-slg'
-                              placeholder='Search'
-                              value={textInput}
-                              onChange={handleChange}
-                              />
-                              <button
-                              className='absolute right-0 text-white bg-indigo-400 border-indigo-500 rounded-l-none top-2 w-36 btn hover:bg-indigo-500 hover:border-none'
-                              type='submit'
-                              >
-                                  Go
-                              </button>
-                              
-                      </div>
-                  </form>
-              </div>
-              <div className='py-2'>
-                  <button
-                  className='btn btn-md btn-ghost'
-                  onClick={clearInputHandler}
-                  >
-                      clear
-                  </button>
-              </div>
-              {/* {state.user && (
-              )
-              } */}
-              <div>
-                { state.error.length > 0 &&
-                    <Alert type={'Error'} message={state.error}></Alert>
-                }
-              </div>
-          </div>
-        );
-    }
+    return (
+        <div 
+        className='grid grid-cols-1 gap-1 mx-8 xl:grid-cols-2 lg:grid-cols-2 md-grid-cols-2'
+        >
+            <div>
+                <form onSubmit={hadnleSubmit}>
+                    <div className='relative items-center col-span-2 col-start-1 py-2 mb-4 border-b border-indigo-400'>
+                        <input
+                            type='text'
+                            className='w-full pr-40 text-black bg-gray-200 border-indigo-400 input input-slg'
+                            placeholder='Search'
+                            value={textInput}
+                            onChange={handleChange}
+                            />
+                            <button
+                            className='absolute right-0 text-white bg-indigo-400 border-indigo-500 rounded-l-none top-2 w-36 btn hover:bg-indigo-500 hover:border-none'
+                            type='submit'
+                            >
+                                Go
+                            </button>
+                    </div>
+                </form>
+            </div>
+            {
+                state.isLoading ? (
+                <div className='col-start-1 col-end-3 row-start-2 p-2 mb-0 bg-gray-700 border border-indigo-300 rounded-lg'>
+                    <Loading />
+                </div>
+                ) :
+                state.users.length > 0 && (
+                <div className='col-start-1 col-end-3 row-start-2 p-2 mb-0 bg-gray-700 border border-indigo-300 rounded-lg'>
+                    <div className='mb-1 border-b border-gray-800'>
+                        <button
+                        className=' btn btn-md btn-ghost'
+                        onClick={clearInputHandler}
+                        >
+                            clear
+                        </button>
+                    </div>
+                    <div className='overflow-y-scroll min-h-52 max-h-72'>
+                        <UserResults users={state.users}/>
+                    </div>
+                </div>
+            ) 
+        }
+        { (state.error.length > 0 && !state.isLoading) &&
+            <div className='col-start-1 row-start-2 row-end-3'>
+                <Alert type={state.error === 'Not Found' ? 'Error' : 'Warning'} message={state.error}></Alert>
+            </div>
+        }
+        </div>
+    );
 };
 
 export default UserSearch;

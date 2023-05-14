@@ -1,10 +1,11 @@
 import { useCallback } from 'react';
 import useSWR from 'swr';
 
-const useGithubFetch = (url: string) => {
+const useGithubFetch = ({url, param}: {url: string, param: string}) => {
     // wrapper of the native fetch
-    const fetcher = useCallback((url: string) =>
-      fetch(url, {
+
+    const fetcher = useCallback(({url, param}: {url: string, param: string}) =>
+      fetch(`${url}${param}`, {
         headers: {
           Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`
         }
@@ -16,7 +17,7 @@ const useGithubFetch = (url: string) => {
         data,
         error,
         isLoading
-    }  = useSWR(url, fetcher);
+    }  = useSWR({url, param}, fetcher);
     
     return {data, error, isLoading};
 };

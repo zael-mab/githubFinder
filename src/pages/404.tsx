@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Layout from './component/Layout';
+import Layout from '../component/Layout';
 import { IoMdHome } from 'react-icons/io';
 
 const notFoundPage = () => {

@@ -5,8 +5,9 @@ import UserSearch from '@/component/UserSearch'
 export default function Home() {
   return (
         <Layout>
-          {/* <UserResults /> */}
-          <UserSearch />
+          <div>
+            <UserSearch />
+          </div>
         </Layout>
   )
 };
