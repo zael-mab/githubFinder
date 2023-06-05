@@ -1,7 +1,14 @@
 import React, { createContext, useReducer } from 'react';
 import reducer from './GithubReducer';
 import {FecthUsersTypes, GithubContextType, State, StateTypes} from '@/types/context'
+import { useRouter } from 'next/router';
 
+export const initState: State = {
+  error: '',
+  user: null,
+  users: [],
+  isLoading: false
+};
 
 const GithubContext = createContext<GithubContextType>({
   state: {
@@ -11,15 +18,9 @@ const GithubContext = createContext<GithubContextType>({
     isLoading: false,
   },
   dispatch: () => {},
-  fetchUsers: ({ url, param, action }: FecthUsersTypes) => Promise.resolve()
+  fetchGithubData: ({ url, param, action }: FecthUsersTypes) => Promise.resolve()
 });
 
-export const initState: State = {
-  error: '',
-  user: null,
-  users: [],
-  isLoading: false
-};
 
 const setAndClearFetchError = (state: State, dispatch: React.Dispatch<any>, error: string) => {
 
@@ -42,11 +43,13 @@ const setAndClearFetchError = (state: State, dispatch: React.Dispatch<any>, erro
   }, 3000);
 };
 
+
 export const GithubProvider  = ({children}: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initState);
+  const router = useRouter();
 
 
-  const fetchUsers = async ({url, param, action}: {url: string, param: string, action: boolean}) => {
+  const fetchGithubData = async ({url, param, action}: {url: string, param: string, action: boolean}) => {
 
     dispatch({
       type: StateTypes.SET_LOADING,
@@ -64,9 +67,12 @@ export const GithubProvider  = ({children}: { children: React.ReactNode }) => {
         }
       });
     
+  
       if (response.status === 404){
         setAndClearFetchError(state, dispatch, 'Not Found');
-
+        if (!action){
+          router.push('/404');
+        }
       }else {
         if (action){
 
@@ -118,7 +124,7 @@ export const GithubProvider  = ({children}: { children: React.ReactNode }) => {
     value={{
       state,
       dispatch,
-      fetchUsers
+      fetchGithubData
     }}
     >
       {children}

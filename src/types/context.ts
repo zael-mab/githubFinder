@@ -9,7 +9,7 @@ export interface FecthUsersTypes {
 export interface GithubContextType {
   state: State;
   dispatch: React.Dispatch<StateAction>;
-  fetchUsers: ({url, param, action} : FecthUsersTypes) => Promise<void>;
+  fetchGithubData: ({url, param, action} : FecthUsersTypes) => Promise<void>;
 };
 
 export interface State {

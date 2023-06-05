@@ -22,7 +22,7 @@ const Cards = ({user}: {user: GithubUserType}) => {
                     <h2 className="pb-1 text-gray-100 card-title">{user.login}</h2>
                     <Link href={{
                         pathname: `/users/[slug]`,
-                        query: {slug: user.id}
+                        query: {slug: user.login}
                         }} className='text-gray-900'>Visit profile</Link>
                 </div>
             </div>

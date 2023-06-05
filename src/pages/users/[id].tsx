@@ -6,19 +6,23 @@ import { useRouter } from 'next/router';
 const GITHUB_URL = `${process.env.NEXT_PUBLIC_GITHUB_URL}`;
 
 const User = () => {
-  const {state, dispatch, fetchUsers} = useContext(GithubContext);
+  const {state, dispatch, fetchGithubData} = useContext(GithubContext);
   const router = useRouter();
   const {id} = router.query;
+  console.log ('id')
   console.log (id)
 
   useEffect(() => {
+
+    if (id){
       const dataFetchingArgs = {
           url: GITHUB_URL,
-          param: `/search/users?${id}`,
+          // param: `/search/user?${id}`,
+          param: `/users/${id}`,
           action: false
       };
-      fetchUsers(dataFetchingArgs);
-    
+      fetchGithubData(dataFetchingArgs);
+    }
 
   }, [id]);
   

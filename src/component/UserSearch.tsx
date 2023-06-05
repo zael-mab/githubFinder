@@ -9,7 +9,7 @@ const GITHUB_URL = `${process.env.NEXT_PUBLIC_GITHUB_URL}`;
 
 const UserSearch = () => {
     const [textInput, setTextInput] = useState<string>('');
-    const {state, dispatch, fetchUsers} = useContext(GithubContext);
+    const {state, dispatch, fetchGithubData} = useContext(GithubContext);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newTextInput = e.target.value;
@@ -64,7 +64,7 @@ const UserSearch = () => {
                 action: true
             };
             
-            fetchUsers(dataFetchingArgs);
+            fetchGithubData(dataFetchingArgs);
 
         }
     };
