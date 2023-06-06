@@ -19,6 +19,7 @@ const Layout = ({children, title, description, keywords}: PropTypes) => {
           <meta name="description" content={description} />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name='keywords' content={keywords}/>
+          <meta name="author" content='zael-mab' />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div className='flex flex-col justify-between min-h-screen text-white'>
@@ -34,8 +35,8 @@ const Layout = ({children, title, description, keywords}: PropTypes) => {
 
 Layout.defaultProps = {
   title: 'Github Finder',
-  description: 'github, github users',
-  keywords: 'github github finder'
+  description: 'GitHub Finder is a Next.js project that allows you to search for GitHub users and view their repositories.',
+  keywords: 'GitHub Finder, Next.js, GitHub, search, repositories, user, development'
 };
 
 export default Layout;
