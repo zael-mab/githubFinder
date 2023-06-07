@@ -7,11 +7,11 @@ interface propTypes {
 const Navbar = ({title}: propTypes) => {
   return (
     <div>
-        <nav className='navbar mb-12 shadow-lg bg-neutral text-neutral-content text-indigo-200'>
+        <nav className='text-indigo-200 shadow-lg navbar bg-neutral text-neutral-content'>
             <div className="container mx-auto ">
                 <div className="flex items-center px-2 mx-2 text-white">
-                    <GoMarkGithub className='hidden sm:inline pr-1 text-4xl'/>
-                    <Link href={'/'} className=' sm:text-lg text-sm px-2 font-bold'>Github Finder</Link>
+                    <GoMarkGithub className='hidden pr-1 text-4xl sm:inline'/>
+                    <Link href={'/'} className='px-2 text-sm font-bold sm:text-lg'>Github Finder</Link>
                 </div>
 
                 <div className="flex-1 px-2 mx-2">
