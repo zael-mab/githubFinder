@@ -70,9 +70,11 @@ export const GithubProvider  = ({children}: { children: React.ReactNode }) => {
   
       if (response.status === 404){
         setAndClearFetchError(state, dispatch, 'Not Found');
+        
         if (!action){
           router.push('/404');
         }
+        
       }else {
         if (action){
 
