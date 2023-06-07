@@ -17,4 +17,9 @@ export interface GithubUserType {
     subscriptions_url: string;
     type: string;
     url: string;
+    bio: string;
+    blog: string;
+    name: string;
+    twitter_username: string;
+    public_repos: number;
 };
