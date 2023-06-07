@@ -10,6 +10,7 @@ const GITHUB_URL = `${process.env.NEXT_PUBLIC_GITHUB_URL}`;
 const UserSearch = () => {
     const [textInput, setTextInput] = useState<string>('');
     const {state, dispatch, fetchGithubData} = useContext(GithubContext);
+
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newTextInput = e.target.value;
@@ -40,17 +41,13 @@ const UserSearch = () => {
 
             dispatch({
                 type: StateTypes.INPUT_ERROR,
-                payload: {
-                    ...state,
-                }
+                payload: {...state}
             });
             
             setTimeout(() => {
                 dispatch({
                     type: StateTypes.CLEAR_ERROR,
-                    payload: {
-                        ...state,
-                    }
+                    payload: {...state}
                 });
             }, 3000);
 
@@ -88,13 +85,13 @@ const UserSearch = () => {
                     <div className='relative items-center col-span-2 col-start-1 py-2 mb-4 border-b border-indigo-400'>
                         <input
                             type='text'
-                            className='w-full pr-40 text-black bg-gray-200 border-indigo-400 input input-slg'
+                            className='w-full pl-5 pr-40 text-black bg-gray-200 border-indigo-400 input input-slg'
                             placeholder='Search'
                             value={textInput}
                             onChange={handleChange}
                             />
                             <button
-                            className='absolute right-0 text-white bg-indigo-400 border-indigo-500 rounded-l-none top-2 w-36 btn hover:bg-indigo-500 hover:border-none'
+                            className='absolute right-0 text-white bg-indigo-400 border-indigo-500 rounded-l-none top-2 w-36 btn hover:bg-indigo-500 hover:text-gray-200 hover:border-none'
                             type='submit'
                             >
                                 Go
@@ -111,12 +108,14 @@ const UserSearch = () => {
                 state.users.length > 0 && (
                 <div className='col-start-1 col-end-3 row-start-2 p-2 mb-0 bg-gray-700 border border-indigo-300 rounded-lg'>
                     <div className='mb-1 border-b border-gray-800'>
-                        <button
-                        className=' btn btn-md btn-ghost'
-                        onClick={clearInputHandler}
-                        >
-                            clear
-                        </button>
+                        <div className='flex items-center mx-2 mb-2'>
+                            <button
+                            className='text-center transition duration-300 ease-in-out btn btn-md btn-ghost hover:border-indigo-400 hover:text-indigo-300'
+                            onClick={clearInputHandler}
+                            >
+                                clear
+                            </button>
+                        </div>
                     </div>
                     <div className='overflow-y-scroll min-h-52 max-h-72'>
                         <UserResults users={state.users}/>
