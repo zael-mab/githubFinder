@@ -38,7 +38,7 @@ const HowToUse = () => {
             <ul className='text-sm list-disc list-inside md:text-lg'>
               <li className='mb-2'>Built with React and Next.js.</li>
               <li className='mb-2'>Fetches data using the GitHub API.</li>
-              <li className='mb-2'>Styled with CSS and Tailwind CSS.</li>
+              <li className='mb-2'>Styled with CSS Tailwind CSS and daisyUI.</li>
             </ul>
           </div>
   
