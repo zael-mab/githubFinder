@@ -7,19 +7,26 @@ const Cards = ({user}: {user: GithubUserType}) => {
 
     return(
         <div
-        className='p-3 mx-2 bg-indigo-400 rounded-md shadow-sm shadow-gray-200 card'
+        className='px-4 py-2 mx-2 bg-indigo-400 shadow-sm shadow-gray-200 card'
         key={user.id}
         >
-            <div className='flex flex-row items-center justify-start hover:scale-105 hover:pl-5'>
+            <div className='flex flex-row items-center justify-start transition-all duration-150 ease-in hover:scale-105 hover:pl-5'>
                 <div className='flex items-center justify-center pr-6 hover:opacity-100 opacity-90'>
                     <div className='avatar'>
                         <div className='border-b rounded-full shadow-md shadow-gray-600'>
-                            <Image width={55} height={55} src={user.avatar_url} alt={user.login} priority={true} />
+                            <Image
+                            className='rounded-full'
+                            width={50}
+                            height={50}
+                            src={user.avatar_url}
+                            alt={user.login}
+                            priority
+                             />
                         </div>
                     </div>
                 </div>
                 <div>
-                    <h2 className="pb-1 text-lg text-gray-100 md:text-md card-title">{user.login}</h2>
+                    <h2 className="pb-2 text-lg text-gray-100 md:text-md card-title">{user.login}</h2>
                     <Link href={{
                         pathname: `/users/[slug]`,
                         query: {slug: user.login}

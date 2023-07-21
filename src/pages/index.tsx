@@ -1,13 +1,10 @@
 import Layout from '@/component/Layout'
-import UserResults from '@/component/UsersResults'
-import UserSearch from '@/component/UserSearch'
+import UserSearch from '@/component/userSearch/UserSearch'
 
 export default function Home() {
   return (
         <Layout>
-          <div>
             <UserSearch />
-          </div>
         </Layout>
   )
 };

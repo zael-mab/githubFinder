@@ -3,6 +3,7 @@ import React from 'react';
 import styles from '@/styles/Layout.module.css';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { useRouter } from 'next/router';
 
 interface PropTypes {
   title: string | undefined,
@@ -12,6 +13,9 @@ interface PropTypes {
 };
 
 const Layout = ({children, title, description, keywords}: PropTypes) => {
+  const router = useRouter();
+  const {pathname} = router;
+  
   return (
     <div className={styles.layout}>
       <Head>
@@ -22,9 +26,9 @@ const Layout = ({children, title, description, keywords}: PropTypes) => {
           <meta name="author" content='zael-mab' />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <div className='flex flex-col justify-between min-h-screen text-white'>
-          <Navbar title={'home'} />
-          <main className='container px-3 pb-4 mx-auto'>
+        <div className='flex flex-col justify-between w-screen min-h-screen text-white'>
+          <Navbar title={pathname} />
+          <main className='container w-full px-3 pb-4 mx-auto'>
             {children}
           </main>
           <Footer />

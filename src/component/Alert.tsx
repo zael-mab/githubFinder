@@ -25,7 +25,7 @@ const Alert = ({type, message}: {type: string, message: string}) => {
 
 
   return (
-    <div className={`shadow-lg alert ${alertType} flex flex-col`}>
+    <div className={`shadow-lg alert ${alertType} flex flex-col w-full`}>
         <div>
             <AlertIcons type={type} />
             <span>{message}</span>
