@@ -4,7 +4,7 @@ const Footer = () => {
     const footeryear = new Date().getFullYear();
   return (
     <footer className='p-3 bg-gray-600 footer footer-center'>
-        <div className='p-1 text-white-100'>
+        <div className='text-white'>
             <TbSquareRoundedLetterZ className='text-3xl text-indigo-400' />
             <p>
                 Copyright
