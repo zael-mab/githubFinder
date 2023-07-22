@@ -28,7 +28,7 @@ const Layout = ({children, title, description, keywords}: PropTypes) => {
         </Head>
         <div className='flex flex-col justify-between w-screen min-h-screen text-white'>
           <Navbar title={pathname} />
-          <main className='container w-full px-3 pb-4 mx-auto'>
+          <main className='container w-full px-3 py-8 mx-auto'>
             {children}
           </main>
           <Footer />

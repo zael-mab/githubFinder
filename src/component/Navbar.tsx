@@ -8,8 +8,9 @@ interface propTypes {
 
 const Navbar = ({title}: propTypes) => {
     const isHome = title === '/';
-
-  return (
+    const isAbout = title === '/about';
+    
+    return (
     <div>
         <nav className='text-indigo-200 shadow-lg navbar bg-neutral'>
             <div className="container mx-auto ">
@@ -27,15 +28,23 @@ const Navbar = ({title}: propTypes) => {
                 </Link>
 
                 <div className="flex-1 px-2 mx-2">
-                    <div className="flex justify-end">
-                        <Link href={'/about'} className={`btn btn-ghost md:btn-sm btn-xs rounded-btn hover:text-white ${!isHome && 'bg-slate-400 bg-opacity-10'}`}>About</Link>
-                        <Link href={'/'} className={`btn btn-ghost md:btn-sm btn-xs rounded-btn hover:text-white ${isHome && 'bg-slate-400 bg-opacity-10'}`}>Home</Link>
+                    <div className="flex justify-end text-gray-200">
+                        <Link
+                        className={`btn btn-ghost md:btn-sm btn-xs rounded-btn hover:text-white ${isAbout && 'bg-slate-400 bg-opacity-10'}`}
+                        href={'/about'}>
+                            About
+                        </Link>
+                        <Link
+                        className={`btn btn-ghost md:btn-sm btn-xs rounded-btn hover:text-white ${isHome && 'bg-slate-400 bg-opacity-10'}`}
+                        href={'/'}>
+                            Home
+                        </Link>
                     </div>
                 </div>
             </div>
         </nav>
     </div>
-  )
+  );
 };
 
 export default Navbar;
