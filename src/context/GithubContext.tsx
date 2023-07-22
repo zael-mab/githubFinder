@@ -18,7 +18,8 @@ const GithubContext = createContext<GithubContextType>({
     isLoading: false,
   },
   dispatch: () => {},
-  fetchGithubData: ({ url, param, action }: FecthUsersTypes) => Promise.resolve()
+  // fetchGithubData: ({ url, param, action }: FecthUsersTypes) => Promise.resolve()
+  fetchGithubData: () => Promise.resolve()
 });
 
 
