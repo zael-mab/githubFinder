@@ -22,4 +22,7 @@ export interface GithubUserType {
     name: string;
     twitter_username: string;
     public_repos: number;
+    location: string;
+    followers: number;
+    following: number;
 };
