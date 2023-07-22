@@ -14,13 +14,13 @@ const HowToUse = () => {
             <h2 className='mb-2 text-lg font-semibold text-gray-300 md:text-xl'>How to Use:</h2>
             <ol className='text-sm list-inside md:text-lg'>
               <li className='mb-2'>
-                <span className='font-semibold text-gray-200 badge md:badge-lg'>Search User:</span> Enter a GitHub username in the search bar. Click &quot;Search&quot; or press &quot;Enter&quot;.
+                <span className='font-semibold text-gray-200 badge md:badge-lg'>Search User</span> Enter a GitHub username in the search bar. Click &quot;Search&quot; or press &quot;Enter&quot;.
               </li>
               <li className='mb-2'>
-                <span className='font-semibold text-gray-200 badge md:badge-lg'>View Profile:</span> User profiles display avatar, name, bio, followers, following, and location. Click &quot;View Profile&quot; to visit their GitHub page.
+                <span className='font-semibold text-gray-200 badge md:badge-lg'>View Profile</span> User profiles display avatar, name, bio, followers, following, and location. Click &quot;View Profile&quot; to visit their GitHub page.
               </li>
               <li className='mb-2'>
-                <span className='font-semibold text-gray-200 badge md:badge-lg'>Explore Repositories:</span> See the user&apos;s public repositories and their details. Click a repository name to view it on GitHub.
+                <span className='font-semibold text-gray-200 badge md:badge-lg'>Explore Repositories</span> See the user&apos;s public repositories and their details. Click a repository name to view it on GitHub.
               </li>
             </ol>
           </div>
