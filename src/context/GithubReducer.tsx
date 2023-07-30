@@ -32,6 +32,11 @@ const reducer = (state: State , action: StateAction) => {
               ...state,
               ...payload
             }
+        case 'SET_REPOS':
+            return {
+              ...state,
+              ...payload
+            }
         case 'SET_LOADING':
             return {
               ...state,

@@ -1,56 +1,52 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useCallback } from 'react';
 import reducer from './GithubReducer';
-import {FecthUsersTypes, GithubContextType, State, StateTypes} from '@/types/context'
+import {FecthUsersTypes, UserReposTypes, GithubContextType, State, StateTypes} from '@/types/context'
+import { GithubUserType } from '@/types/user';
 import { useRouter } from 'next/router';
 
 export const initState: State = {
   error: '',
   user: null,
   users: [],
+  repos: [],
   isLoading: false
 };
 
 const GithubContext = createContext<GithubContextType>({
-  state: {
-    users: [],
-    error: '',
-    user: null,
-    isLoading: false,
-  },
+  state: initState,
   dispatch: () => {},
-  // fetchGithubData: ({ url, param, action }: FecthUsersTypes) => Promise.resolve()
-  fetchGithubData: () => Promise.resolve()
+  fetchGithubData: async () => {},
+  userRepos: async () => {}
 });
-
-
-const setAndClearFetchError = (state: State, dispatch: React.Dispatch<any>, error: string) => {
-
-  dispatch({
-    type: StateTypes.FETCH_ERROR,
-    payload: {
-      ...state,
-      error: error,
-      isLoading: false,
-    }
-  });
-
-  setTimeout(() => {
-    dispatch({
-      type: StateTypes.CLEAR_ERROR,
-      payload: {
-        ...state,
-      }
-    });
-  }, 3000);
-};
 
 
 export const GithubProvider  = ({children}: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initState);
   const router = useRouter();
 
+  const setAndClearFetchError = useCallback((error: string) => {
+    dispatch({
+      type: StateTypes.FETCH_ERROR,
+      payload: {
+        ...state,
+        error: error,
+        isLoading: false,
+      },
+    });
 
-  const fetchGithubData = async ({url, param, action}: {url: string, param: string, action: boolean}) => {
+    setTimeout(() => {
+      dispatch({
+        type: StateTypes.CLEAR_ERROR,
+        payload: {
+          ...state,
+        },
+      });
+    }, 3000);
+  }, [state]);
+
+
+  
+  const fetchGithubData = useCallback(async ({url, param, action}: {url: string, param: string, action: boolean}) => {
 
     dispatch({
       type: StateTypes.SET_LOADING,
@@ -70,7 +66,7 @@ export const GithubProvider  = ({children}: { children: React.ReactNode }) => {
     
   
       if (response.status === 404){
-        setAndClearFetchError(state, dispatch, 'Not Found');
+        setAndClearFetchError('Not Found');
         
         if (!action){
           router.push('/404');
@@ -79,7 +75,7 @@ export const GithubProvider  = ({children}: { children: React.ReactNode }) => {
       }else {
         if (action){
 
-          const {items} = await response.json();
+          const { items } = await response.json();
           
           if (items.length > 0){
             dispatch({
@@ -93,20 +89,19 @@ export const GithubProvider  = ({children}: { children: React.ReactNode }) => {
             });
 
           }else{
-          
-            setAndClearFetchError(state, dispatch, 'Not Found');
+            setAndClearFetchError('Not Found');
           }
 
         }else{
 
           const user = await response.json();
+
           dispatch({
             type: StateTypes.SET_USER,
             payload: {
               ...state,
               user,
               error: '',
-              isLoading: false
             }
           });
         }
@@ -114,20 +109,65 @@ export const GithubProvider  = ({children}: { children: React.ReactNode }) => {
 
     } catch(error: unknown) {
       if (error instanceof Error){
-        setAndClearFetchError(state, dispatch, error.message);
+        setAndClearFetchError(error.message);
       }else{
-        setAndClearFetchError(state, dispatch, 'An unknown error occurred.');
+        setAndClearFetchError('An unknown error occurred.');
       }
     }
-  };
+  }, [router, state, setAndClearFetchError]);
 
+
+  // User Repos
+  const userRepos = useCallback(async ({login, param, url}: UserReposTypes) => {
+
+    try {
+
+      const response = await fetch(`${url}/users/${login}/${param}?sort=updated`, {
+        headers: {
+          Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`
+        }
+      });
+
+
+      if (response.status === 404){
+        setAndClearFetchError('Not Found');
+        
+      }else {
+        const repos  = await response.json();
+
+
+        if (repos.length > 0){
+          dispatch({
+            type: StateTypes.SET_REPOS,
+            payload: {
+              ...state,
+              repos,
+              error: '',
+              isLoading: false
+            }
+          });
+        }else{
+          setAndClearFetchError('Not Found');
+        }
+
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error){
+        setAndClearFetchError(error.message);
+      }else{
+        setAndClearFetchError('An unknown error occurred.');
+      }
+    }
+
+  }, [state, setAndClearFetchError]);
 
   return (
     <GithubContext.Provider
     value={{
       state,
       dispatch,
-      fetchGithubData
+      fetchGithubData,
+      userRepos
     }}
     >
       {children}
