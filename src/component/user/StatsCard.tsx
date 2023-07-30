@@ -19,7 +19,7 @@ const StatCard = ({children, stat, value}: {children: ReactNode, stat: string, v
 const StatsCard = ({ user }: { user: GithubUserType }) => {
     
     return (
-        <div className='flex flex-col shadow stats md:flex-row'>
+        <div className='flex flex-col bg-gray-800 rounded-lg shadow stats-vertical md:flex-row md:stats-horizontal'>
             <StatCard value={user.followers} stat={'followers'} >
                 <FaUsers />
             </StatCard>

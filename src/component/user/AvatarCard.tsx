@@ -4,7 +4,7 @@ import { GithubUserType } from '@/types/user';
 
 const AvatarCard = ({ user }: { user: GithubUserType }) => {
   return (
-    <div className='shadow-xl w-52 card md:w-96 image-full'>
+    <div className='shadow-xl w-52 card lg:w-96 image-full'>
       <figure>
         <Image
         className='rounded-xl'
