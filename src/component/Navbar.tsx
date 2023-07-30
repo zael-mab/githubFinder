@@ -17,11 +17,10 @@ const Navbar = ({title}: propTypes) => {
                 <Image
                 className='w-[2.8rem] h-[2.8rem]'
                 src={github}
-                priority
                 alt='github logo'
                 placeholder="blur"
                 blurDataURL={'../../public/icons/github.svg'} />
-                <Link href={'/'} className='text-sm font-bold text-white sm:text-lg' as={'image'}>
+                <Link href={'/'} className='text-sm font-bold text-white sm:text-lg'>
                     <span className='mx-4'>
                         Github Finder
                     </span>
