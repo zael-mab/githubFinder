@@ -1,7 +1,5 @@
 # Github Finder
 
-![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
-
 ## Description
 This is a GitHub User Finder web application built using Tailwind CSS, Daisy UI, and Next.js. It allows you to search for GitHub users, view their profiles, and explore their public repositories.
 
@@ -39,3 +37,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 3. Explore Repositories: The user's public repositories will be listed below their profile information. Each repository will show its name and some basic details. To view a specific repository on GitHub, click on its name.
 
+## License
+
+![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
