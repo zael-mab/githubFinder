@@ -3,27 +3,33 @@
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Description
+This is a GitHub User Finder web application built using Tailwind CSS, Daisy UI, and Next.js. It allows you to search for GitHub users, view their profiles, and explore their public repositories.
 
-Github Finder is a web application that allows users to search for Github users and view their profiles and repositories. The application is built with Next.js and uses Tailwind CSS and DaisyUI for styling.
+
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
 
+
 ## Installation
 
-To install the necessary dependencies, run the following command:
-```
-npm install
-```
+1. Clone the repository:
+``` git clone <repository_url> ```
+2. Navigate to the project directory:
+```cd <project_directory> ```
+3. Install the dependencies:
+```npm install```
 
-## Usage
-run the development server:
-
-```bash
-npm run dev
-
-```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## How to Use
+
+1. Search User: Enter a GitHub username in the search bar provided on the homepage. After entering the username, either click the "Search" button or press "Enter" on your keyboard to initiate the search.
+
+2. View Profile: Once you have searched for a GitHub user, the application will display the user's profile information, including their avatar, name, bio, followers, following, and location. To visit the user's GitHub page and get more details, click the "View Profile" button.
+
+3. Explore Repositories: The user's public repositories will be listed below their profile information. Each repository will show its name and some basic details. To view a specific repository on GitHub, click on its name.
+
