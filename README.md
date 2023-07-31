@@ -17,10 +17,16 @@ This is a GitHub User Finder web application built using Tailwind CSS, Daisy UI,
 
 1. Clone the repository:
 ``` git clone <repository_url> ```
-2. Navigate to the project directory:
-```cd <project_directory> ```
-3. Install the dependencies:
-```npm install```
+
+3. Navigate to the project directory:
+ ``` cd <project_directory> ```
+
+4. After obtaining your GitHub token. Add the following line to the .env file,
+   replacing YOUR_GITHUB_TOKEN with the token you generated:
+``` NEXT_PUBLIC_GITHUB_TOKEN=YOUR_GITHUB_TOKEN ```
+
+6. Install the dependencies:
+   ``` npm install ```
 
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
