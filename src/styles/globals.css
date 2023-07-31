@@ -11,19 +11,23 @@ html {
     margin: 0;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 /* width */
 ::-webkit-scrollbar {
+    box-sizing: border-box;
     width: 10px;
 }
  
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #f4f4f4;
 }
   
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    height: 40px;
     background: #818cf8;
     border-top: 1px solid #333;
     border-bottom: 1px solid #777;
