@@ -11,22 +11,22 @@ const HowToUse = () => {
           </p>
   
           <div className='mb-6'>
-            <h2 className='mb-2 text-lg font-semibold text-gray-300 md:text-xl'>How to Use:</h2>
+            <h2 className='mb-3 text-lg font-semibold text-gray-400 md:text-xl'>How to Use:</h2>
             <ol className='text-sm list-inside md:text-lg'>
               <li className='mb-2'>
-                <span className='font-semibold text-gray-200 badge md:badge-lg'>Search User</span> Enter a GitHub username in the search bar. Click &quot;Search&quot; or press &quot;Enter&quot;.
+                <span className='px-2 py-1 mr-1 font-semibold text-gray-700 bg-indigo-200 rounded-full'>Search User:</span> Enter a GitHub username in the search bar. Click &quot;Search&quot; or press &quot;Enter&quot;.
               </li>
               <li className='mb-2'>
-                <span className='font-semibold text-gray-200 badge md:badge-lg'>View Profile</span> User profiles display avatar, name, bio, followers, following, and location. Click &quot;View Profile&quot; to visit their GitHub page.
+                <span className='px-2 py-1 mr-1 font-semibold text-gray-700 bg-indigo-200 rounded-full'>View Profile:</span> User profiles display avatar, name, bio, followers, following, and location. Click &quot;View Profile&quot; to visit their GitHub page.
               </li>
               <li className='mb-2'>
-                <span className='font-semibold text-gray-200 badge md:badge-lg'>Explore Repositories</span> See the user&apos;s public repositories and their details. Click a repository name to view it on GitHub.
+                <span className='px-2 py-1 mr-1 font-semibold text-gray-700 bg-indigo-200 rounded-full'>Explore Repositories:</span> See the user&apos;s public repositories and their details. Click a repository name to view it on GitHub.
               </li>
             </ol>
           </div>
   
           <div className='mb-6'>
-            <h2 className='mb-2 font-semibold text-gray-300 md:text-xl text-md'>Tips:</h2>
+            <h2 className='mb-3 font-semibold text-gray-400 md:text-xl text-md'>Tips:</h2>
             <ul className='text-sm list-disc list-inside md:text-lg'>
               <li className='mb-2'>Enter the correct GitHub username for accurate results.</li>
               <li className='mb-2'>Be aware of GitHub API rate limits.</li>
@@ -34,11 +34,11 @@ const HowToUse = () => {
           </div>
   
           <div className='mb-6'>
-            <h2 className='mb-2 font-semibold text-gray-300 md:text-xl text-md'>Tech Stack:</h2>
+            <h2 className='mb-3 font-semibold text-gray-400 md:text-xl text-md'>Tech Stack:</h2>
             <ul className='text-sm list-disc list-inside md:text-lg'>
-              <li className='mb-2'>Built with React and Next.js.</li>
+              <li className='mb-2'>Built with Next.js.</li>
               <li className='mb-2'>Fetches data using the GitHub API.</li>
-              <li className='mb-2'>Styled with CSS Tailwind CSS and daisyUI.</li>
+              <li className='mb-2'>Styled with Tailwind CSS and daisyUI.</li>
             </ul>
           </div>
   

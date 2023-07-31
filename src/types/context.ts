@@ -1,22 +1,10 @@
 import { GithubUserType } from './user';
-
-export interface FecthUsersTypes {
-  url: string;
-  param: string;
-  action: boolean;
-};
-
-export interface UserReposTypes {
-  login: string;
-  url: string;
-  param: string;
-}
   
 export interface GithubContextType {
   state: State;
   dispatch: React.Dispatch<StateAction>;
-  fetchGithubData: ({url, param, action} : FecthUsersTypes) => Promise<void>;
-  userRepos: ({login, param, url}: UserReposTypes) => Promise<void>;
+  fetchGithubData: ({ param } : { param: string; }) => Promise<void>;
+  getUserAndRepos: ({ login }: { login: string }) => void;
 };
 
 export interface State {
@@ -33,9 +21,8 @@ export enum StateTypes {
   INPUT_ERROR = 'INPUT_ERROR',
   FETCH_ERROR = 'FETCH_ERROR',
   SET_USERS = 'SET_USERS',
-  SET_USER = 'SET_USER',
+  SET_USER_AND_REPOS = 'SET_USER_AND_REPOS',
   SET_LOADING = 'SET_LOADING',
-  SET_REPOS = 'SET_REPOS'
 };
 
 export interface StateAction{

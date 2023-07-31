@@ -32,6 +32,8 @@ const Repos = () => {
         </div>
         <div className=''>
           <div className='w-full px-40 py-[1px] bg-indigo-400 mt-4'></div>
+          {
+          state.repos.length > 5 &&
           <div className='flex items-center justify-center w-full'>
             <button
             className='flex items-center justify-center px-4 py-2 mt-4 text-indigo-200 transition-all duration-100 ease-in border border-indigo-200 rounded-lg shadow hover:bg-indigo-200 hover:text-gray-800'
@@ -40,6 +42,7 @@ const Repos = () => {
               <AiOutlineArrowUp />
             </button>
           </div>
+          }
         </div>
       </div>
     );

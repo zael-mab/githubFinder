@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import React from 'react';
-import styles from '@/styles/Layout.module.css';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { useRouter } from 'next/router';

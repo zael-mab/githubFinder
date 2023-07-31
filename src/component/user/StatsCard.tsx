@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
-import { GithubUserType } from '@/types/user';
 import { FaUsers } from 'react-icons/fa';
 import { BiGitRepoForked } from 'react-icons/bi';
-import { HiUsers } from 'react-icons/hi';
+import { useContext } from 'react';
+import GithubContext from '@/context/GithubContext';import { HiUsers } from 'react-icons/hi';
 
 const StatCard = ({children, stat, value}: {children: ReactNode, stat: string, value: number}) => {
     return (
@@ -16,17 +16,21 @@ const StatCard = ({children, stat, value}: {children: ReactNode, stat: string, v
     );
 };
 
-const StatsCard = ({ user }: { user: GithubUserType }) => {
+const StatsCard = () => {
+    const { state } = useContext(GithubContext);
+  
+    if (state.user === null)
+      return <></>;
     
     return (
         <div className='flex flex-col bg-gray-800 rounded-lg shadow stats-vertical md:flex-row md:stats-horizontal'>
-            <StatCard value={user.followers} stat={'followers'} >
+            <StatCard value={state.user.followers} stat={'followers'} >
                 <FaUsers />
             </StatCard>
-            <StatCard value={user.following} stat={'following'} >
+            <StatCard value={state.user.following} stat={'following'} >
                 <HiUsers />
             </StatCard>
-            <StatCard value={user.public_repos} stat={'Public Repos'} >
+            <StatCard value={state.user.public_repos} stat={'Public Repos'} >
                 <BiGitRepoForked />
             </StatCard>
         </div>

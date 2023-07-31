@@ -2,11 +2,11 @@ import React from "react";
 
 const SearchBar = (
     {
-        textInput,
+        inputValue,
         handleChange
     }: 
     {
-        textInput: string,
+        inputValue: string,
         handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     }) => {
         
@@ -16,7 +16,7 @@ const SearchBar = (
                 type='text'
                 className='w-full pl-5 text-black bg-gray-200 border-indigo-400 pr-28 md:pr-40 input input-slg'
                 placeholder='Search'
-                value={textInput}
+                value={inputValue}
                 onChange={handleChange}
                 />
                 <button

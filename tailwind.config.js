@@ -24,7 +24,6 @@ module.exports = {
           'base-200': '#6F7788',
           'base-300': '#00767D',
           'base-400': '#F9F871',
-          "yellow": "#F9F871",
           "info": "#6C93EF",
           "success": "#23BE94",
           "warning": "#8F6E0A",

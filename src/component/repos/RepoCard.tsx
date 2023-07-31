@@ -13,30 +13,16 @@ const RepoCard = ({repo}: any) => {
           href={repo.html_url} target='_blank'
           className='flex items-center justify-center'
           >
-            <AiOutlineLink className='mr-2 text-lg text-indigo-400 duration-300 ease-in hover:text-indigo-200 transition-color' />
+            <AiOutlineLink className='mr-2 text-lg text-indigo-400' />
+            <span className='text-xl font-bold'>
+              {repo.name}
+            </span>
           </Link>
-          <h3 className='text-xl font-bold'>
-            {repo.name}
-          </h3>
         </div>
   
         <p className='text-sm text-gray-300'>{repo.description}</p>
           
         <div className='flex items-center mt-4 text-xs md:text-md'>
-  
-          <span className='mr-2 badge badge-info'>
-            <BiFork />
-            <div className='ml-1'>
-              {repo.forks}
-            </div>
-          </span>
-          
-          <span className='mr-2 badge badge-ghost'>
-            <AiOutlineEye />
-            <div className='ml-1'>
-              {repo.watchers_count}
-            </div>
-          </span>
   
           <span className='mr-2 badge badge-secondary'>
             <AiFillStar />
@@ -44,7 +30,14 @@ const RepoCard = ({repo}: any) => {
               {repo.stargazers_count}
             </div>
           </span>
-  
+
+          <span className='mr-2 badge badge-warning'>
+            <AiOutlineEye />
+            <div className='ml-1'>
+              {repo.watchers_count}
+            </div>
+          </span>
+          
           {
             repo.language && (
               <span className='mr-2 badge badge-accent'>
@@ -55,6 +48,13 @@ const RepoCard = ({repo}: any) => {
               </span>
             )
           }
+  
+          <span className='mr-2 badge badge-info'>
+            <BiFork />
+            <div className='ml-1'>
+              {repo.forks}
+            </div>
+          </span>
           
         </div>
   
