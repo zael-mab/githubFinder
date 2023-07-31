@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import GithubContext from '@/context/GithubContext';
 import RepoCard from './RepoCard';
+import { AiOutlineArrowUp } from 'react-icons/ai'
 
 const Repos = () => {
     const { state } = useContext(GithubContext);
@@ -15,7 +16,7 @@ const Repos = () => {
     return (
       <div className='mt-8 lg:mt-12 md:mt-10'>
         <div className='w-full px-40 py-[1px] bg-indigo-400 mb-4'></div>
-        <h1 className='mb-4 text-2xl font-bold text-center lg:text-left'>
+        <h1 className='mb-4 text-2xl font-bold '>
           Repositories:
         </h1>
         
@@ -31,12 +32,14 @@ const Repos = () => {
         </div>
         <div className=''>
           <div className='w-full px-40 py-[1px] bg-indigo-400 mt-4'></div>
-          <button 
-          className='flex items-center justify-center px-4 py-2 mt-4 text-indigo-200 transition-all duration-100 ease-in border border-indigo-200 rounded-lg shadow hover:bg-indigo-200 hover:text-gray-800'
-          onClick={scrollToTop}
-          >
-            Up
-          </button>
+          <div className='flex items-center justify-center w-full'>
+            <button
+            className='flex items-center justify-center px-4 py-2 mt-4 text-indigo-200 transition-all duration-100 ease-in border border-indigo-200 rounded-lg shadow hover:bg-indigo-200 hover:text-gray-800'
+            onClick={scrollToTop}
+            >
+              <AiOutlineArrowUp />
+            </button>
+          </div>
         </div>
       </div>
     );

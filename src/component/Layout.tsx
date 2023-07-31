@@ -14,10 +14,10 @@ interface PropTypes {
 
 const Layout = ({children, title, description, keywords}: PropTypes) => {
   const router = useRouter();
-  const {pathname} = router;
+  const { pathname } = router;
   
   return (
-    <div className={styles.layout}>
+    <>
       <Head>
           <title>{title}</title>
           <meta name="description" content={description} />
@@ -26,14 +26,14 @@ const Layout = ({children, title, description, keywords}: PropTypes) => {
           <meta name="author" content='zael-mab' />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <div className='flex flex-col justify-between w-screen min-h-screen text-white'>
+        <div className='flex flex-col justify-between w-screen min-h-screen overflow-x-hidden text-white'>
           <Navbar title={pathname} />
           <main className='container w-full px-3 py-8 mx-auto'>
             {children}
           </main>
           <Footer />
         </div>
-    </div>
+    </>
   );
 };
 
